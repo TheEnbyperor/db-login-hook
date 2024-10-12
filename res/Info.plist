@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist>
+<dict>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleIdentifier</key>
+    <string>ch.magigalcodewit.vdv.db-hook</string>
+    <key>CFBundleName</key>
+    <string>DB Login Hook</string>
+    <key>CFBundleDisplayName</key>
+    <string>DB Login Hook</string>
+    <key>CFBundleVersion</key>
+    <string>1.0.0</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0.0</string>
+    <key>NSHumanReadableCopyright</key>
+    <string>Q Misell, 2024 - MIT License</string>
+    <key>CFBundleExecutable</key>
+    <string>db-hook</string>
+    <key>CFBundleIconFile</key>
+    <string>Icon.png</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLName</key>
+            <string>DB Navigator</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>dbnav</string>
+            </array>
+        </dict>
+    </array>
+</dict>
+</plist>
