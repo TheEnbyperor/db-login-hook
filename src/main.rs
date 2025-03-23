@@ -23,7 +23,14 @@ extern fn objc_application_open_urls(_this: &Object, _: Sel, _application: u64, 
         .to_string();
 
     let path_encoded = base64::engine::general_purpose::URL_SAFE.encode(&path_str);
-    let new_url_string = format!("https://vdv-pkpass.magicalcodewit.ch/account/db_login/callback?url={}", path_encoded);
+
+    let new_url_string = if path_str.starts_with("dbnav://") {
+        format!("https://vdv-pkpass.magicalcodewit.ch/account/db_login/callback?url={}", path_encoded)
+    } else if path_str.starts_with("bahnbonus://") {
+        format!("https://vdv-pkpass.magicalcodewit.ch/account/bahnbonus_login/callback?url={}", path_encoded)
+    } else {
+        return;
+    };
 
     let string_cls = Class::get("NSString").unwrap();
     let new_url_str: *mut Object = unsafe { msg_send![string_cls, alloc] };
