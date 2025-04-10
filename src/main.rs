@@ -28,6 +28,8 @@ extern fn objc_application_open_urls(_this: &Object, _: Sel, _application: u64, 
         format!("https://vdv-pkpass.magicalcodewit.ch/account/db_login/callback?url={}", path_encoded)
     } else if path_str.starts_with("bahnbonus://") {
         format!("https://vdv-pkpass.magicalcodewit.ch/account/bahnbonus_login/callback?url={}", path_encoded)
+    } else if path_str.starts_with("de.eosuptrade.avvshop://") {
+        format!("https://vdv-pkpass.magicalcodewit.ch/account/avv_login/callback?url={}", path_encoded)
     } else {
         return;
     };
