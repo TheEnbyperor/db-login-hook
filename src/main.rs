@@ -5,15 +5,15 @@ use objc::declare::ClassDecl;
 
 #[link(name = "Foundation", kind = "framework")]
 #[link(name = "AppKit", kind = "framework")]
-extern {}
+extern "C" {}
 
-extern fn objc_did_finish_launching(this: &Object, _: Sel, _: u64) {
+extern "C" fn objc_did_finish_launching(this: &Object, _: Sel, _: u64) {
     let application_cls = Class::get("NSApplication").unwrap();
     let app: *mut Object = unsafe { msg_send![application_cls, sharedApplication] };
     let _:() = unsafe { msg_send![app, terminate: this] };
 }
 
-extern fn objc_application_open_urls(_this: &Object, _: Sel, _application: u64, urls: u64) {
+extern "C" fn objc_application_open_urls(_this: &Object, _: Sel, _application: u64, urls: u64) {
     let urls = urls as *mut Object;
     let url: *mut Object = unsafe { msg_send![urls, objectAtIndex: 0] };
     let path: *mut Object = unsafe { msg_send![url, absoluteString] };
@@ -60,9 +60,9 @@ fn main() {
 
     let object_cls = Class::get("NSObject").unwrap();
     let mut delegate = ClassDecl::new("DBNavHookDelegate", object_cls).unwrap();
-    let f: extern fn(&Object, Sel, u64, u64) = objc_application_open_urls;
+    let f: extern "C" fn(&Object, Sel, u64, u64) = objc_application_open_urls;
     unsafe { delegate.add_method(sel!(application:openURLs:), f) };
-    let f: extern fn(&Object, Sel, u64) = objc_did_finish_launching;
+    let f: extern "C" fn(&Object, Sel, u64) = objc_did_finish_launching;
     unsafe { delegate.add_method(sel!(applicationDidFinishLaunching:), f) };
     let delegate_class = delegate.register();
     let delegate: *mut Object = unsafe { msg_send![delegate_class, alloc] };
